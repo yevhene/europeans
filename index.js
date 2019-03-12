@@ -7,7 +7,7 @@ const app = express();
 const MongoClient = mongodb.MongoClient;
 const ObjectId = mongodb.ObjectId;
 
-const mongoUrl = 'mongodb://localhost:27017/01-db';
+const mongoUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/01-db';
 let mongo;
 MongoClient
   .connect(mongoUrl, { useNewUrlParser: true })
@@ -61,6 +61,9 @@ app.get('/:id', function(req, res) {
     });
 });
 
-app.listen(3000, function() {
-  console.log('App started at http://localhost:3000');
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, function() {
+  console.log(`App started on http://localhost:${PORT}`);
 });
